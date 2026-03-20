@@ -151,6 +151,15 @@ class SpaceGUI(QMainWindow):
         controls.addWidget(self.action_btn)
         controls.addWidget(self.output)
 
+        # Create GitHub Button
+        self.github_btn = QPushButton("📂 View Source on GitHub")
+        self.github_btn.setStyleSheet("background-color: #24292e; color: white; font-weight: bold;")
+        self.github_btn.clicked.connect(self.open_github)
+
+        # Add it to the controls layout (above the output box)
+        controls.addWidget(self.github_btn)
+
+
         self.canvas = SolarCanvas(self.app.planets)
 
         layout.addLayout(controls, 1)
@@ -160,40 +169,9 @@ class SpaceGUI(QMainWindow):
         self.resize(1200, 800)
         self.update_ui_for_stage()
 
-    def setup_github_button(self, main_layout):
-        # 1. Create the button
-        self.btn_github = QPushButton(" View Source on GitHub")
-        # You can even use a Unicode character for a simple icon effect
-
-        # 2. Apply styling (GitHub Dark Theme style)
-        self.btn_github.setFixedSize(160, 30)
-        self.btn_github.setCursor(Qt.PointingHandCursor)
-        self.btn_github.setStyleSheet("""
-            QPushButton {
-                background-color: #24292e;
-                color: white;
-                border-radius: 4px;
-                font-size: 11px;
-                font-family: 'Segoe UI', Arial;
-            }
-            QPushButton:hover {
-                background-color: #444d56;
-            }
-        """)
-
-        # 3. Connect the web link
-        self.btn_github.clicked.connect(lambda: webbrowser.open("https://github.com/YourUsername/YourRepo"))
-
-        # 4. Create a horizontal layout to push it to the left
-        footer_layout = QHBoxLayout()
-        footer_layout.addWidget(self.btn_github)
-
-        # Add a "Stretch" to the right side of the button
-        # This pushes the button to the far left
-        footer_layout.addStretch(1)
-
-        # 5. Add this footer to your main vertical layout
-        main_layout.addLayout(footer_layout)
+    def open_github(self):
+        url = "https://github.com/VictorCara26/Stratec_Internship_Challenge_2026"
+        webbrowser.open(url)
 
     def update_ui_for_stage(self):
         idx = self.stage_selector.currentIndex()
